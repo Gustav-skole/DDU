@@ -1,0 +1,17 @@
+#links a {
+	padding:2px;
+}
+
+.center {
+	margin:auto;
+	width: fit-content;
+}
+
+a {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+body {
+	background: whitesmoke;
+}
