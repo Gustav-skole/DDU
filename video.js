@@ -3,20 +3,23 @@ var bar = document.getElementById("bar")
 var display = document.getElementById("frames")
 var length = 9
 
-function makebar(length, bar, display) {
-	for (i=length;i<0;i++) {
+function makeBar(length, bar, element) {
+	for (i=0;i<length;i++) {
 		var segment = document.createElement("a")
-		segment.href("#")
-		segment.onClick("showFrame(frames[" + i + "],display)")
+		//segment.href=""
+		segment.innerHTML = "--";
+		segment.onclick = "function() {showFrame(frames[i], element);};"
 		bar.appendChild(segment)
+		console.log("Made: segment " + i)
 	}
+	console.log("Made controls")
 }
 
-function showFrame(element, display) {
-	for (i in frames) {
+function showFrame(element) {
+	for (i in element) {
 		i.style.display = "none";
 	}
-	elem.style.display = display
+	element.style.display = "display"
 }
 
 function gotoBar(n, length, bar) {
