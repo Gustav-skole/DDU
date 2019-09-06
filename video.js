@@ -8,7 +8,7 @@ function makeBar(length, bar, element) {
 		var segment = document.createElement("a")
 		//segment.href=""
 		segment.innerHTML = "--";
-		segment.onclick = "function() {showFrame(frames[i], element);};"
+		segmet.style = ""
 		bar.appendChild(segment)
 		console.log("Made: segment " + i)
 	}
