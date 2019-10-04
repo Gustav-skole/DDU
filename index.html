@@ -10,6 +10,20 @@
 
 		<link rel="stylesheet" href="style.css">
 
+      <script type="text/javascript" src="emojiMovie.js"></script>
+      <script type="text/javascript">
+        //var frames = ["1","2","3"]
+        var counter = 0
+
+        document.getElementById("asciivideo")
+
+        function playLoop(video, frames) {
+          counter++
+          video.innerHTML = frames[counter%frames.length]
+        }
+
+      </script>
+
 	</head>
 
 	<body>
@@ -24,7 +38,7 @@
 		    </pre>
 		</div>
 		<div id="links" class="center">
-			<a href="*">Webfeature</a>
+			<a href="https://sites.google.com/view/webfeature/gustav">Webfeature</a>
 			<a href="*">UX</a>
 			<a href="*">Virtuelle rum</a>
 			<a href="*">WIP</a>
@@ -32,11 +46,13 @@
 		<p class="line center" style="text-decoration: line-through;">_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ </p>
 		<br>
 		<div class="center">
-<div>
-<!-- ASCII Video -->
+      <div class="grid">
+        <div id="asciiCssDemo">
+        <!-- ASCII Video -->
 <style type="text/css">
 	.frame {
 		display: none;
+    width: fit-content;
 	}
 	.bar:hover ~ #standby {
 		display: none;
@@ -63,7 +79,7 @@
 	<a id="a3" class="bar"><div class="vKnap">[3.]  .</div></a>
 	<a id="a4" class="bar"><div class="vKnap">[4.]  .</div></a>
 	<a id="a5" class="bar"><div class="vKnap">[5.]  Ved at sætte musen over tallene.</div></a>
-	<pre id="standby">
+<pre id="standby" style="width: fit-content">
       ...,;:lodxkkOOOOOkkxdolc:,'...    
      ...',;:lodxxkkOOOkkkxdolc:;,'...   
      ...',;cloddxkkkkkkkxxdolc:;,'..... 
@@ -88,8 +104,8 @@
           ..........'''''''''.....      
           ..........'''''''......       
           ..........'''''''.....        
-	</pre>
-	<pre id="d1" class="frame">
+</pre>
+ <pre id="d1" class="frame">
     ...',;clodkkO00KKK00OOkxdlc:;,'.... 
    ....',:cloxkkO0000000OOkxdol:;,'.....
   ....',;:clodxkOO00000OOkkxdolc:;,'....
@@ -114,13 +130,13 @@
       .........''',,,,;;;;;;,,'.....    
       .........''',,,,,;;;,,,''....     
       .........''',,,,,;;;,,''.....     
-	</pre>
-	<pre id="d2" class="frame">
-      ..',:loxkO0KXXXXKK00kxdlc;,...    
-     ...,;cldxO0KKXXXXXKK0Okdol:;'...   
-    ...';:lodkO00KKKKKKK00Okxdoc:;'.... 
-   ...',;clodxkOO000000OOOkkxdolc:;,'...
- ....'',;:clodxxkkkkkkkxxxxdddoollc:,,'.
+</pre>
+<pre id="d2" class="frame">
+    ..',:loxkO0KXXXXKK00kxdlc;,...    
+   ...,;cldxO0KKXXXXXKK0Okdol:;'...   
+  ...';:lodkO00KKKKKKK00Okxdoc:;'.... 
+ ...',;clodxkOO000000OOOkkxdolc:;,'...
+....'',;:clodxxkkkkkkkxxxxdddoollc:,,'.
 .....',,;:ccllooooooooooooooooooollc:;,,
 ....'',,;;::cccclcccccccccllloooooolcc:;
 ...'',,;;::::cccc::::::::ccllooddddollcc
@@ -132,23 +148,23 @@
 '',,;;;:::::::::ccccccllooddxxxxddolcc::
 ...'',,,,,;;;;;;;:::::ccloodddddollc:;,,
 .....'''''',,,,,,;;;:::ccloooooolc:;,,'.
- ........'''''',,,;;;;::cllooollc:;,'...
-   .........'''',,,;;;::cclllllc:;,'....
-     ........'''',,;;;::cccllcc:;,'...  
-      ........'''',,;;;::cccc::;,'...   
-      ........'''',,,;;;:::::;,,'...    
-      .........''',,,,;;;;;;;,'....     
-      .........''',,,,;;;;;;,'....      
-      .........''',,,,;;;;;,,'...       
-	</pre>
-	<pre id="d3" class="frame">
-         .';ldOKXXXXKKKKKKOxo:,..       
-       ..;cok0KNNWWWNNNNNNX0kdl;'..     
-     ..,:ldk0KXNWWWWWWWWNNXK0kxoc;..    
-    ..,;codxO0KXXNNNNNXKK000Okkxol:'..  
-   ..';:cclodxkOO00OOOkxddddxxxxxdoc,.. 
-  ..',,;;::clloddddoolcc:ccclodxkkxoc;..
- ..'',,,,,,;::cccc:;;;,,,;;:clodxkkxoc,'
+........'''''',,,;;;;::cllooollc:;,'...
+ .........'''',,,;;;::cclllllc:;,'....
+   ........'''',,;;;::cccllcc:;,'...  
+    ........'''',,;;;::cccc::;,'...   
+    ........'''',,,;;;:::::;,,'...    
+    .........''',,,,;;;;;;;,'....     
+    .........''',,,,;;;;;;,'....      
+    .........''',,,,;;;;;,,'...       
+</pre>
+<pre id="d3" class="frame">
+       .';ldOKXXXXKKKKKKOxo:,..       
+     ..;cok0KNNWWWNNNNNNX0kdl;'..     
+   ..,:ldk0KXNWWWWWWWWNNXK0kxoc;..    
+  ..,;codxO0KXXNNNNNXKK000Okkxol:'..  
+ ..';:cclodxkOO00OOOkxddddxxxxxdoc,.. 
+..',,;;::clloddddoolcc:ccclodxkkxoc;..
+..'',,,,,,;::cccc:;;;,,,;;:clodxkkxoc,'
 ...',,,,,,,;;;;;,,'''''',,,;:codxkkxdl:,
 ..',,,,;;;;::::;,,'''',,,,;:cldxkkkkxoc:
 .',;;::cclooooollccc::::cclodxkOOOOOkdoc
@@ -157,24 +173,24 @@
 .,;clloollllloooollccclloxk0000Okxxdolc:
 .',:ccc:;;,;;;::ccc::::clodkOOOkxdolc:;'
 ...,;;;,,'..'',,;;;;;;;::lodxkkxdolc;,..
-  ..',,,''....'',,,,,,;;:codxxxdolc:,.. 
-   ...',''....'',,,,,,;;:coddddolc:,..  
-    ..'''''..'',,,;;;;::clodxxdol:;'.   
-     .........'',,,;;;:ccoodxddoc;'..   
-       .........'''',,;:cllooolc;'..    
-        ..........'''',;:cclcc:,..      
-       ......''''''',,,;::c::;'..       
-     ..........''',,;;;:::::;'..        
-    ............'',;;;::cc:;,'..        
-	</pre>
-	<pre id="d4" class="frame">
-         ..,cdOKXNXK000KXKOxl;'.        
-       ..;cdOKNWWWWWWWWWWWNKOxl:'.      
-     ..,:oxOKXNWWMMMMMWWWWNXKOkdc,..    
-    ..,:loxkO0KXNNNWWNNXKKK0OOkkdl:'.   
-   ..,;:cclodxkO00000OkxdddddxkkOxdc,.. 
-  ..',;;;;:ccloddddoolc:;::ccldxOOkdc;..
- ..',,,,,,,;;:cccc:;;,,',,;;:cldkOOkoc,.
+..',,,''....'',,,,,,;;:codxxxdolc:,.. 
+ ...',''....'',,,,,,;;:coddddolc:,..  
+  ..'''''..'',,,;;;;::clodxxdol:;'.   
+   .........'',,,;;;:ccoodxddoc;'..   
+     .........'''',,;:cllooolc;'..    
+      ..........'''',;:cclcc:,..      
+     ......''''''',,,;::c::;'..       
+   ..........''',,;;;:::::;'..        
+  ............'',;;;::cc:;,'..        
+</pre>
+<pre id="d4" class="frame">
+       ..,cdOKXNXK000KXKOxl;'.        
+     ..;cdOKNWWWWWWWWWWWNKOxl:'.      
+   ..,:oxOKXNWWMMMMMWWWWNXKOkdc,..    
+  ..,:loxkO0KXNNNWWNNXKKK0OOkkdl:'.   
+ ..,;:cclodxkO00000OkxdddddxkkOxdc,.. 
+..',;;;;:ccloddddoolc:;::ccldxOOkdc;..
+..',,,,,,,;;:cccc:;;,,',,;;:cldkOOkoc,.
 ..',,'''''',;;;;,''..'''',,;:cldxkOkxl;'
 ..',,,,,,,;;::;,'....''',,,;:coxkkOkxoc,
 .',;;::ccloddoollcc:::::::cldxO000OOkxl:
@@ -182,48 +198,63 @@
 .,:clodkkOOOOOOOkxdollodkOKXXXXKOkkkkxdl
 .,:cloooolllloooolc:::clodO0KK0kxxddolc;
 .';:ccc:;,',,;:cccc:::::clxO00Okxddoc:,'
- .';::;,'.....';;:::::;;;coxkkkxddoc:,..
-  ..',,,'......',,,,,,,;;cldxxxdolc:,.. 
-    .',,,'....',,,'''',;:codxxdolc:,..  
-    ..,;,'....',;;;;;;::clodxxxdlc;'.   
-     ..'''....'',,;;;;:clodxkkxoc:'.    
-       ...........''',;:clooddoc;'.     
-        ...''''......'',:ccllc:,..      
-        .....'''''''',,;::cc:;'.        
-     ..........'',,;;;::ccc:;'.         
-    .',,'.......'',;;;:cccc:,'.         
-	</pre>
-	<pre id="d5" class="frame">
-           .;oOXNNX0OkkXNX0dc,.         
-        .,lkXWMMMMMMMWWWMMMNX0d:'.      
-      .;lxO0KNWWMMMMMMMMMMMX00Oxl,.     
-     ':codxk0KKNWWWWMMWNXKXXOkO0kl;'.   
-   .';:::cldxxk00O0XNKkollodxdx0KOdc;.  
-  .';;;,;;::clododkxoc,,,;::cclkKK0xl;. 
- .,;;,'',,'';cccll:,''.'',;:::cokKKOdc,.
- .;;,'..''.';::;'....''''',;;:lddO00ko;.
+.';::;,'.....';;:::::;;;coxkkkxddoc:,..
+..',,,'......',,,,,,,;;cldxxxdolc:,.. 
+  .',,,'....',,,'''',;:codxxdolc:,..  
+  ..,;,'....',;;;;;;::clodxxxdlc;'.   
+   ..'''....'',,;;;;:clodxkkxoc:'.    
+     ...........''',;:clooddoc;'.     
+      ...''''......'',:ccllc:,..      
+      .....'''''''',,;::cc:;'.        
+   ..........'',,;;;::ccc:;'.         
+  .',,'.......'',;;;:cccc:,'.         
+</pre>
+<pre id="d5" class="frame">
+         .;oOXNNX0OkkXNX0dc,.         
+      .,lkXWMMMMMMMWWWMMMNX0d:'.      
+    .;lxO0KNWWMMMMMMMMMMMX00Oxl,.     
+   ':codxk0KKNWWWWMMWNXKXXOkO0kl;'.   
+ .';:::cldxxk00O0XNKkollodxdx0KOdc;.  
+.';;;,;;::clododkxoc,,,;::cclkKK0xl;. 
+.,;;,'',,'';cccll:,''.'',;:::cokKKOdc,.
+.;;,'..''.';::;'....''''',;;:lddO00ko;.
 .,;,',;,''';::,.  .....','',;:cxkkkO0x:.
 .,,,,cl;;:oxdllllll:::;;;,;:oxO0XXOkkko'
 .,;cclldOKWNK0KXXK0OxxkOkkOKNWWNX00OOKKc
 .;:ddldKXO0K000K0kxoc;:OK0NWNWNXOkkxd0K:
 .;:loloxd;;llclool:'.'co:cONXKOxdoddool,
 .,:cllc;,'..,;cllcc:cll;,cxKKK0kxdddl;,'
-  ':ol:,......';cllc::;,':oxkOOkxddl:'. 
-   .,,,''......';,'..';;,;lxkkxolllc;.  
-    .,;,''....';,'....',:clxkxdollc:.   
-     ,dl,'....,::cc:;;::clodxkxdlc:,.   
-      ';,'....',,,;::::clodk0KOoc:;.    
-        .'''.........',:clloddol:,.     
-        ..'''''.......',;:cllll:.       
-        ....',,,''''''',;:clc:'.        
-       .......'',,;;::cccccc;'.         
-    .co;'........'',;;:llll:,,.         
-	</pre>
-
+':ol:,......';cllc::;,':oxkOOkxddl:'. 
+ .,,,''......';,'..';;,;lxkkxolllc;.  
+  .,;,''....';,'....',:clxkxdollc:.   
+   ,dl,'....,::cc:;;::clodxkxdlc:,.   
+    ';,'....',,,;::::clodk0KOoc:;.    
+      .'''.........',:clloddol:,.     
+      ..'''''.......',;:cllll:.       
+      ....',,,''''''',;:clc:'.        
+     .......'',,;;::cccccc;'.         
+  .co;'........'',;;:llll:,,.         
+</pre>
 </div>
-</div>
-		</div>
+        </div>
+        <div id="asciiCssDemoText">
+          <h1>Interaktive ASCII billeder</h1>
+          Tilde symbolet ( ~ ) kan bruges til at lave interaktivt CSS hvor elementer har inflydelse på hinanden.
+          Det har nogle begrænsninger, det virker ikke hvis tilden påvirker noget der komme inden det element som er interaktivt.
 
-		<!--<p>|_ o _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ | 1:23</p>-->
-	</body>
+          Du kan implementere det selv vha. følgende mønster
+          <p class="kode">a:state ~ b { style }</p>
+        </div>
+      </div>
+    </div>
+    <center>
+      <h1>Emoji video</h1>
+      <pre id="asciivideo" style="overflow: hidden;">
+        <script type="text/javascript">
+        var afspil = setInterval("playLoop(document.getElementById('asciivideo'), emoji)", 60)
+        </script>
+      </pre>
+      Man kan også bruge tegn til bevægende billeder.
+    </center>
+  </body>
 </html>
