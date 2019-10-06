@@ -22,13 +22,17 @@ frame = cv2.imread("nudel.png")
 black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
 absolute = remove_isolated_pixels(cv2.inRange(frame, np.array([0,83,212]) , np.array([100,242,255])))
 
-contours, _ = cv2.findContours(absolute, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+sx = cv2.Sobel(absolute,cv2.CV_32F,1,0)
+sy = cv2.Sobel(absolute,cv2.CV_32F,0,1)
+m = cv2.magnitude(sx,sy)
+m = cv2.normalize(m,None,0.,255.,cv2.NORM_MINMAX,cv2.CV_8U)
+
+contours, _ = cv2.findContours(m, mode=cv2.RETR_LIST, method=cv2.CHAIN_APPROX_NONE)
 cont = []
 for contour in contours:
-	cont.append(contour[0][0])
+	cont.append(contour[0])
 
-cnt = cv2.convexHull(np.float32(cont))
-rect = cv2.minAreaRect(cnt)
+rect = cv2.minAreaRect(np.float32(cont))
 
 print(rect[-1])
 
@@ -38,6 +42,8 @@ cv2.drawContours(black_image, [box], 0, (0,255,0), 2)
 
 x, y, w, h = cv2.boundingRect(absolute)
 cv2.rectangle(black_image, (x, y), (x+w, y+h), (0, 255, 0), 1)
+
+cv2.drawContours(black_image, [contour], 0, (0,0,255), 2)
 
 while(True):
 	cv2.imshow("new", cv2.addWeighted(black_image,0.5,cv2.cvtColor(absolute, cv2.COLOR_GRAY2RGB),0.5,0))
