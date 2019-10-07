@@ -18,7 +18,7 @@ def remove_isolated_pixels(image):
 
     return new_image
 
-frame = cv2.imread("nudel.png")
+frame = cv2.imread("nudel2.png")
 black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
 absolute = remove_isolated_pixels(cv2.inRange(frame, np.array([0,83,212]) , np.array([100,242,255])))
 
@@ -31,12 +31,8 @@ m = cv2.magnitude(sx,sy)
 m = cv2.normalize(m,None,0.,255.,cv2.NORM_MINMAX,cv2.CV_8U)
 
 contours, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
-cont = []
-for cnt in contours[0]:
-    hull = cv2.convexHull(cnt)
-    cont.append(hull[0])
 
-rect = cv2.minAreaRect(np.float32(cont))
+rect = cv2.minAreaRect(contours[0])
 box = np.int0(cv2.boxPoints(rect))
 cv2.drawContours(black_image, [box], 0, (0,255,0), 2)
 
