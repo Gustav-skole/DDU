@@ -25,11 +25,11 @@ def remove_isolated_pixels(image):
     return new_image
 
 cap = cv2.VideoCapture(0)
-frame = cv2.imread("nudel.png")
+#frame = cv2.imread("nudel.png")
 while(True):
-    black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
 
-    #ret, frame = cap.read()
+    ret, frame = cap.read()
+    black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
     flip = cv2.flip(frame,1)
     mask_rg = remove_isolated_pixels(cv2.inRange(flip, np.array([0,83,212]) , np.array([100,242,255])))
 

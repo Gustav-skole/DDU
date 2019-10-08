@@ -1,5 +1,23 @@
 import cv2
 import numpy as np
+import math as M
+
+def rotate_point(cx,cy,angle,center):
+    s = M.sin(M.degrees(angle))
+    c = M.cos(M.degrees(angle))
+
+    #translate point back to origin:
+    npx = center[0] - cx
+    npy = center[1] - cy
+
+    #rotate point
+    xnew = npx * c - npy * s
+    ynew = npx * s + npy * c
+
+    #translate point back:
+    point = (xnew + cx, ynew + cy)
+
+    return point
 
 def remove_isolated_pixels(image):
     connectivity = 8
@@ -38,7 +56,7 @@ def crop_minAreaRect(img, rect):
 
     return img_crop
 
-frame = cv2.imread("nudel2.png")
+frame = cv2.imread("nudel.png")
 black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
 absolute = remove_isolated_pixels(cv2.inRange(frame, np.array([0,83,212]) , np.array([100,242,255])))
 
@@ -56,9 +74,36 @@ rect = cv2.minAreaRect(contours[0])
 box = np.int0(cv2.boxPoints(rect))
 cv2.drawContours(black_image, [box], 0, (0,255,0), 2)
 
+cropped = crop_minAreaRect(absolute, rect)
+
+height, width = cropped.shape
+
+boundsArray = []
+ssw = 1/8*width
+
+for i in range(8):
+    sliceImage = cropped[0:height,int(ssw*i):int(ssw*(i+1))]
+    ix, iy, iw, ih = cv2.boundingRect(sliceImage)
+
+    cx = ssw*i+ix+(iw/2) 
+    cy = iy+(ih/2)
+
+    rotation_center = (width/2, height/2)
+
+    p = rotate_point(cx,cy,rect[2],rotation_center)
+    p_shift = int(p[0]+rect[0][0]-width/2),int(p[1]+rect[0][1]-height/2)
+
+    print(str(p) + " rotation: " + str(rect[2]) + "rotation_center: " + str(rotation_center))
+    print(p_shift)
+    print(cx,cy)
+    
+    cv2.circle(black_image, (int(p[0]),int(p[1])), 2, (255,0,0))
+    cv2.circle(black_image, (int(cx),int(cy)), 2, (0,0,255))
+    cv2.circle(black_image, (p_shift), 2, (0,255,0))
+
 while(True):
-    cv2.imshow("new", crop_minAreaRect(frame, rect))
-    #cv2.imshow("new", cv2.addWeighted(black_image,0.5,frame,0.5,0))
+    #cv2.imshow("n", cropped)
+    cv2.imshow("new", cv2.addWeighted(black_image,0.5,frame,0.5,0))
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 

@@ -1,4 +1,4 @@
-import cv2#, sys
+import cv2, sys
 import numpy as np
 
 def remove_isolated_pixels(image):
@@ -55,20 +55,42 @@ while(True):
 
     contours, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
-    #print(contours)
+    if(contours != []):
+        rect = cv2.minAreaRect(contours[0]) 
+        #box = np.int0(cv2.boxPoints(rect))
+        cropImage = crop_minAreaRect(frame, rect)
+        ch, cw, _ = cropImage.shape 
+        print(ch, cw)
+        if(ch > cw):
+            tci = cv2.transpose(cropImage, cropImage);
+            horImage = cv2.flip(tci, 1);
+        else:
+            horImage = cropImage
 
-    if(contours != None):
-        try:
-            rect = cv2.minAreaRect(contours[0])
-            box = np.int0(cv2.boxPoints(rect))
-            cv2.drawContours(black_image, [box], 0, (0,255,0), 2)
+        height, width, _ = horImage.shape
 
-            cv2.imshow("new", crop_minAreaRect(frame, rect))
-        except:
-            pass
-            #print(sys.exc_info()[0])
+        boundsArray = []
+        ssw = 1/8*width
+
+        for i in range(8):
+            sliceImage = horImage[0:height,int(ssw*i):int(ssw*(i+1))]
+            print(sliceImage.shape,horImage.shape)
+            ix, iy, iw, ih = cv2.boundingRect(sliceImage)
+            
+            cx = ssw*i+ix-(iw/2) 
+            cy = iy-(ih/2)
+
+            
+
+            #cv2.rectangle(black_image, (ix+x+int(ssw*i), iy+y), (x+ix+iw+int(ssw*i), y+iy+ih), (0, 255, 0), 1)
+            #pointY = int(iy+y+ih/2)
+            #pointX = int(x+ix+i*ssw+iw/2)
+
+            boundsArray.append((int(pointX),int(pointY)))
     else:
         cv2.imshow("new", frame)
+
+    cv2.imshow("new", cv2.addWeighted(black_image,0.5,frame,0.5,0))
 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
