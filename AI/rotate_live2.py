@@ -74,17 +74,17 @@ while(True):
 
         for i in range(8):
             sliceImage = horImage[0:height,int(ssw*i):int(ssw*(i+1))]
-            print(sliceImage.shape,horImage.shape)
             ix, iy, iw, ih = cv2.boundingRect(sliceImage)
-            
-            cx = ssw*i+ix-(iw/2) 
-            cy = iy-(ih/2)
 
-            #cv2.rectangle(black_image, (ix+x+int(ssw*i), iy+y), (x+ix+iw+int(ssw*i), y+iy+ih), (0, 255, 0), 1)
-            #pointY = int(iy+y+ih/2)
-            #pointX = int(x+ix+i*ssw+iw/2)
+            cx = ssw*i+ix+(iw/2) 
+            cy = iy+(ih/2)
 
-            boundsArray.append((int(pointX),int(pointY)))
+            rotation_center = (width/2, height/2)
+
+            p = rotate_point((cx,cy),rect[2],rotation_center)
+            p_shift = int(p[0]+rect[0][0]-width/2),int(p[1]+rect[0][1]-height/2)
+
+            cv2.circle(black_image, (p_shift), 2, (0,255,0))
     else:
         cv2.imshow("new", frame)
 
