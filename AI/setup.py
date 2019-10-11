@@ -43,6 +43,11 @@ imgtk = funk.cv2tk(frame)
 imgShow = Label(root, image=imgtk)
 imgShow.pack()
 
+vinkel = Label(root, text="Vinkel")
+vinkel.pack()
+
+rect = [0,0,0]
+
 while(alive):
     ret, frame = cap.read()
     black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
@@ -63,6 +68,11 @@ while(alive):
         cropped = funk.crop_minAreaRect(absolute, rect)
 
         height, width = cropped.shape
+        rotate_compensate = 0
+
+        if height > width:
+            cropped = funk.rotate_image(cropped, 90)
+            rotate_compensate = 90
 
         boundsArray = []
         ssw = 1/8*width
@@ -76,7 +86,7 @@ while(alive):
 
             rotation_center = (width/2, height/2)
 
-            p = funk.rotate_point((cx,cy),rect[2],rotation_center)
+            p = funk.rotate_point((cx,cy),rect[2]+rotate_compensate,rotation_center)
             p_shift = int(p[0]+rect[0][0]-width/2),int(p[1]+rect[0][1]-height/2)
 
             cv2.circle(black_image, (p_shift), 2, (0,255,0))
@@ -84,6 +94,8 @@ while(alive):
     img2 = funk.cv2tk(cv2.addWeighted(black_image,0.5,frame,0.5,0))
     imgShow.configure(image=img2)
     imgShow.image = img2
+    vinkel.configure(text=str(rect[2]))
+    vinkel.text = str(rect[2])
     root.update()
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
