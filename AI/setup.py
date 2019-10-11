@@ -44,7 +44,7 @@ imgShow = Label(root, image=imgtk)
 imgShow.pack()
 
 while(alive):
-    
+    ret, frame = cap.read()
     black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
 
     try:
