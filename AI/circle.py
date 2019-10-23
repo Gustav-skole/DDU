@@ -32,36 +32,9 @@ while(True):
     flip = cv2.flip(frame,1)
     mask_rg = remove_isolated_pixels(cv2.inRange(flip, np.array([0,83,212]) , np.array([100,242,255])))
 
-    absolute = mask_rg
-    x, y, w, h = cv2.boundingRect(absolute)
-    if h >= 15:
-        rect = (x, y, w, h)
-        cv2.rectangle(flip, (x, y), (x+w, y+h), (0, 255, 0), 1)
+    center, radius = cv2.minEnclosingCircle(mask_rg)
 
-    boundsArray = []
-    boxImage = absolute[x:(x+w),y:(y+h)]
-
-    for i in range(8):
-        Sw = i/8*w
-        sliceImage = boxImage[int(Sw):int(Sw+1/8*w),0:h]
-        ix, iy, iw, ih = cv2.boundingRect(sliceImage)#boxImage[int(Sw):int(Sw+1/8*w),0:h])
-        point = (x+ix-int(iw/2),y+int(Sw+1/8*w)+iy-int(ih/2))
-        boundsArray.append(point)
-        if i == 6:
-            print(sliceImage.shape)
-            print(x, y, w, h," i: ",ix,iy,iw,ih)
-
-    for i in range(7):
-        #print(boundsArray[i],boundsArray[1+i])
-        cv2.line(flip,boundsArray[i],boundsArray[1+i],(0,255,0),1)
-
-    width, height, channels = flip.shape
-    # (((width - height)/2)+height)
-    #
-    cropped = flip[80:480,0:400]
-    scaled = cv2.resize(cropped,(72,72))
-
-    cv2.imshow("new", absolute)
+    cv2.imshow("new", mask_rg)
     #cv2.imshow('Frame', cv2.add(cv2.cvtColor(mask_rg,cv2.COLOR_GRAY2RGB), flip))
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break

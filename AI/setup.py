@@ -70,9 +70,9 @@ while(alive):
         height, width = cropped.shape
         rotate_compensate = 0
 
-        if height > width:
-            cropped = funk.rotate_image(cropped, 90)
-            rotate_compensate = 90
+        #if height > width:
+        #    cropped = funk.rotate_image(cropped, 90)
+        #    rotate_compensate = 90
 
         boundsArray = []
         ssw = 1/8*width

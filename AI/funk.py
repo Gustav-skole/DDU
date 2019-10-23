@@ -79,6 +79,22 @@ def findContour(img): #kun en dimension i billedet
     else:
         return []
 
+def findContours(img): #kun en dimension i billedet
+    rect_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (5, 30))
+    threshed = cv2.morphologyEx(img, cv2.MORPH_CLOSE, rect_kernel)
+
+    sx = cv2.Sobel(threshed,cv2.CV_32F,1,0)
+    sy = cv2.Sobel(threshed,cv2.CV_32F,0,1)
+    m = cv2.magnitude(sx,sy)
+    m = cv2.normalize(m,None,0.,255.,cv2.NORM_MINMAX,cv2.CV_8U)
+
+    contours, _ = cv2.findContours(m, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    if contours != []:
+        return contours
+    else:
+        return []
+
 def rotate_image(mat, angle):
     """
     Rotates an image (angle in degrees) and expands image to avoid cropping
