@@ -21,8 +21,8 @@ while(True):
         cv2.drawContours(black_image, [box], 0, (0,255,0), 2)
 
         for i in range(8):
-            pass
-        print(box)
+            
+        #print(box)
 
         lefty = int((-x*vy/vx) + y)
         righty = int(((frame.shape[1]-x)*vy/vx)+y)
