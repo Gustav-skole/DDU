@@ -1,3 +1,4 @@
+from synthesizer import Player, Synthesizer, Waveform
 import cv2, sys
 import numpy as np
 
