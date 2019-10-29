@@ -58,3 +58,44 @@ En punkt rotations funktion bliver implementeret, koden var baseret på et onlin
 
 ## iteration 9-10, ændringer på mange filer, "Stor ændring"
 
+Tidligere kodes funktioner bliver flyttet til sin egen fil (`Funk.py`) som kan importeres, det gør det lettere at læse koden. Samt nye funktioner i filen:
+
+- `cv2tk(img)` Konverterer fra cv2 læseligt format til tKinter læseligt format
+- `rotate_point(point,angle,center)` Roterer et punkt om et andet
+- `remove_isolated_pixels(image)` Fjerner isolerede pixels i et billede
+- `crop_minAreaRect(img, rect)` Beskær et billede til et roteret rektangel
+- `findContour(img)` Finder konturer til et billede
+
+`Setup.py` bliver lavet med en brugerflade til at instruere hvilke værdier `cv2.inRange` skal bruge. `Simple_rotate.py` og `test.py` bliver brugt som sandkasse til at finde ud af hvorfor rotationsfunktionen ikke virker og fikse problemerne. 
+
+## iteration 11-12, den sidste kamp
+
+Den sidste strækning inden vi måtte opgive vores tilgang. For at programmet skulle virke havde vi brug for at kunne lave punkt placering forskelligt alt efter forholdet mellem siderne på `cv2.minAreaRect()`, dog var det ikke trivielt.
+
+### Det sidste forsøg
+
+Sidernes størrelse sammenlignes og billedet roteres så billedet beskæres på den længste led.
+
+```py
+rotate_compensate = 0
+
+if height > width:
+    cropped = funk.rotate_image(cropped, 90)
+    rotate_compensate = 90
+```
+
+Problemet med denne tilgang er at der ikke er rækkefølge på siderne så vi roterer billedet baseret på dårlige antagelser, variablet `width` er ikke altid bredden af billedet og `height` er ikke nødvendigvist højden.
+
+Her stødte vi også ind i et andet problem, CV2 roterer ikke billeder så de forbliver intakte, kanterne forsvinder.
+
+Dog var dette problem trivielt løst ved at tilføje en funktion, men det løste ikke kodens mere grundlæggende problemer, som blev en del af koden i iteration 3, at punkter bliver sat i en rækkefølge der ikke hænger sammen med konstruktionen af kassen men afstanden til bunden af billedet.
+
+# Nye horisonter
+
+Efter vores primære metode gik fra hinanden kom vi på nye idéer, en simplere interaktion der stadig havde dele af vores originale idé. Vi ville lave synthesizeren uden waveform funktionalitet og derfor video behandling uden punktsætning.
+
+Eftersom "nudel-detektion" blev opnået og forfinet gennem forsøget på at lave punktsætningen kunne koden hurtigt bruges til det nye mål.
+
+## iteration 2.0, `basic.py`
+
+Koden fra forrige iterationer bliver brugt til at skrive et program der kan finde poolnudlen og dets center koordinat og rotation. Variablerne `h`, `w` og `r` gør det nemt at tilgå koordinat og rotation så koden blot skal skrives sammen med synthesizer delen
