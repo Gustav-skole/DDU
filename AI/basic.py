@@ -2,6 +2,21 @@ from synthesizer import Player, Synthesizer, Waveform
 import cv2, sys
 import numpy as np
 
+from pyo import *
+import time, math
+
+s = Server().boot()
+s.start()
+
+lfd = Sine([1.4,.3], mul=.2, add=.5)
+#saw = SuperSaw(freq=[49,50], detune=lfd, bal=0.7, mul=0.2).out()
+sin = Sine(freq=500, mul=0.2).out()
+
+i = 0
+baseFreq = 500
+tMod = 0
+
+
 def remove_isolated_pixels(image):
     connectivity = 8
 
@@ -62,9 +77,15 @@ while(True):
         h = (rect[0][0]+rect[1][0])*0.5
         w = (rect[0][1]+rect[1][1])*0.5
         r = rect[2]
-
     else:
         cv2.imshow("new", frame)
+    sin.setFreq(h+baseFreq+math.sin(tMod)*abs(r))
+
+    tMod += 0.1*pi
+    if tMod > 2*pi:
+        tMod = 0
+
+    time.sleep(0.01)
 
     cv2.imshow("new", cv2.addWeighted(black_image,0.5,frame,0.5,0))
 
@@ -73,3 +94,4 @@ while(True):
 
 cap.release()
 cv2.destroyAllWindows()
+s.stop()
