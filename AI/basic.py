@@ -1,4 +1,3 @@
-from synthesizer import Player, Synthesizer, Waveform
 import cv2, sys
 import numpy as np
 
@@ -10,7 +9,7 @@ s.start()
 
 lfd = Sine([1.4,.3], mul=.2, add=.5)
 #saw = SuperSaw(freq=[49,50], detune=lfd, bal=0.7, mul=0.2).out()
-sin = Sine(freq=500, mul=0.2).out()
+sin = Sine(freq=500, mul=0.5).out()
 
 i = 0
 baseFreq = 500
@@ -56,8 +55,11 @@ def crop_minAreaRect(img, rect):
 
 cap = cv2.VideoCapture(0)
 
+h = w = r = 0
+
 while(True):
-    ret, frame = cap.read()
+    ret, flipped = cap.read()
+    frame = cv2.flip(flipped, 1)
     black_image = np.zeros(shape=frame.shape, dtype=np.uint8)
     absolute = remove_isolated_pixels(cv2.inRange(frame, np.array([0,83,212]) , np.array([100,242,255])))
 
@@ -73,13 +75,15 @@ while(True):
 
     if(contours != []):
         rect = cv2.minAreaRect(contours[0]) 
-        #box = np.int0(cv2.boxPoints(rect))
+        box = np.int0(cv2.boxPoints(rect))
         h = (rect[0][0]+rect[1][0])*0.5
         w = (rect[0][1]+rect[1][1])*0.5
         r = rect[2]
+        print(h, w, r)
+        cv2.drawContours(black_image, [box], 0, (0,255,0), 2)
     else:
         cv2.imshow("new", frame)
-    sin.setFreq(h+baseFreq+math.sin(tMod)*abs(r))
+    sin.setFreq(h*2)#h*2+baseFreq+math.sin(tMod)*abs(w/10))
 
     tMod += 0.1*pi
     if tMod > 2*pi:
